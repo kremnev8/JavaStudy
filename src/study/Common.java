@@ -34,11 +34,32 @@ public class Common {
         return input;
     }
 
+    public static boolean InputQuestion(String message) {
+        Print(message + "(Yes/No): ");
+        try {
+            String input = reader.readLine();
+            return (input.toLowerCase().contains("y"));
+
+        } catch (IOException e) {
+            Println("Something went wrong!");
+        }
+        return false;
+    }
+
+
     public static int PickRandom(int type, int min, int max){
         if (type == 0) {
             return (int) (Math.random() * (max - min)) + min;
         }else {
             return rnd.nextInt(max - min) + min;
         }
+    }
+
+    public static int Factorial(int num){
+        int result = 1;
+        for (int i = 1; i <= num; i++) {
+            result *= i;
+        }
+        return result;
     }
 }

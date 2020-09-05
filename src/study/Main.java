@@ -14,79 +14,98 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
 
-        int prgID = Common.InputInt("Choose which program to run(0-4): ");
+        boolean running = true;
 
-        switch (prgID) {
-            case 0:{
-                int[] array = {1, 3, 5, 7, 11, 13};
-                int sum = 0;
+        while (running) {
 
-                for (int i = 0; i < array.length; i++){
-                    sum += array[i];
+            int prgID = Common.InputInt("Choose which program to run(0-4): ");
+
+            switch (prgID) {
+                case 0: {
+                    int[] array = {1, 3, 5, 7, 11, 13};
+                    int sum = 0;
+
+                    for (int i = 0; i < array.length; i++) {
+                        sum += array[i];
+                    }
+                    Common.Println("Array sum: " + sum);
+                    break;
                 }
-                Common.Println("Array sum: " + sum);
-            }
-            case 1:{
+                case 1: {
 
-                String output = "";
+                    String output = "";
 
-                for (int i = 0; i < args.length; i++){
-                    output += args[i];
+                    for (int i = 0; i < args.length; i++) {
+                        output += " " + args[i];
+                    }
+                    Common.Println("Arguments:" + output);
+                    break;
                 }
-                Common.Println("Arguments:" + output);
-            }
-            case 2:{
-                int num = Common.InputInt("Number of elements to print: ");
+                case 2: {
+                    int num = Common.InputInt("Number of elements to print: ");
 
-                DecimalFormat formatter = new DecimalFormat("###.###");
-                String output = "";
+                    DecimalFormat formatter = new DecimalFormat("###.###");
+                    String output = "";
 
-                for (int i = 1; i <= num; i++) {
-                    double curNum = 1/(double)i;
-                    output += (i==1 ? "" : " ") + formatter.format(curNum);
+                    for (int i = 1; i <= num; i++) {
+                        double curNum = 1 / (double) i;
+                        output += (i == 1 ? "" : " ") + formatter.format(curNum);
+                    }
+
+                    Common.Println("First " + num + " elements of Harmonic Series:");
+                    Common.Println(output);
+                    break;
                 }
+                case 3: {
+                    int num = Common.InputInt("Number of elements: ");
 
-                Common.Println("First " + num + " elements of Harmonic Series:");
-                Common.Println(output);
-            }
-            case 3:{
-                int num = Common.InputInt("Number of elements: ");
+                    int[] array = new int[num];
 
-                int[] array = new int[num];
+                    int selection = Common.InputInt("Select 0 - Math.random() or 1 - Random: ");
+                    String output = "";
 
-                int selection = Common.InputInt("Select 0 - Math.random() or 1 - Random: ");
-                String output = "";
+                    for (int i = 0; i < num; i++) {
+                        array[i] = Common.PickRandom(selection, 0, 1024);
+                        output += (i == 0 ? "" : " ") + array[i];
+                    }
 
-                for (int i = 0; i < num; i++) {
-                    array[i] = Common.PickRandom(selection, 0, 1024);
-                    output += (i==0 ? "" : " ") + array[i];
-                }
+                    Common.Println(output);
+                    output = "";
 
-                Common.Println(output);
-                output = "";
+                    for (int i = 0; i < num - 1; i++) {
 
-                for (int i = 0; i < num - 1; i++) {
+                        int jMin = i;
+                        for (int j = i + 1; j < num; j++) {
+                            if (array[j] < array[jMin]) {
+                                jMin = j;
+                            }
+                        }
 
-                    int jMin = i;
-                    for (int j = i + 1; j < num; j++) {
-                        if (array[j] < array[jMin]) {
-                            jMin = j;
+                        if (jMin != i) {
+                            int tmp = array[i];
+                            array[i] = array[jMin];
+                            array[jMin] = tmp;
                         }
                     }
 
-                    if (jMin != i) {
-                        int tmp = array[i];
-                        array[i] = array[jMin];
-                        array[jMin] = tmp;
+                    for (int i = 0; i < num; i++) {
+                        output += (i == 0 ? "" : " ") + array[i];
                     }
+
+                    Common.Println(output);
+                    break;
+
                 }
-
-                for (int i = 0; i < num; i++) {
-                    output += (i==0 ? "" : " ") + array[i];
+                case 4: {
+                    int num = Common.InputInt("Calculate factorial of?: ");
+                    int res = Common.Factorial(num);
+                    Common.Println("Result: " + res);
+                    break;
                 }
-
-                Common.Println(output);
-
+            }
+            boolean runMore = Common.InputQuestion("Do you want to run another program?");
+            if (!runMore) {
+                running = false;
             }
         }
     }
