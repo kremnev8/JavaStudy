@@ -1,4 +1,4 @@
-package study;
+package Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +32,16 @@ public class Common {
             Println("Invalid Input!");
         }
         return input;
+    }
+
+    public static String InputString(String message) {
+        Print(message);
+        try {
+            return reader.readLine();
+        } catch (IOException e) {
+            Println("Something went wrong!");
+        }
+        return "";
     }
 
     public static boolean InputQuestion(String message) {

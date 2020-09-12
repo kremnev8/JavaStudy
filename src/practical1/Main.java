@@ -1,4 +1,6 @@
-package study;
+package practical1;
+
+import Util.Common;
 
 import java.text.DecimalFormat;
 
