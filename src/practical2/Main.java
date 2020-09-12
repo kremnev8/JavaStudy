@@ -1,11 +1,10 @@
 package practical2;
 
 import Util.Common;
-import Util.Shape;
+import Util.IShape;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.CheckedOutputStream;
 
 public class Main {
 
@@ -18,8 +17,8 @@ public class Main {
 
             switch (prgID) {
                 case 0:{
-                    Shape shape1 = new Rect(10, 20);
-                    Common.Println("Rect: a: " + ((Rect)shape1).a + ", b: "+ ((Rect)shape1).b);
+                    IShape shape1 = new Rect(10, 20);
+                    Common.Println("Rect: a: " + ((Rect)shape1).getA() + ", b: "+ ((Rect) shape1).getB());
                     Common.Println("Perimeter: " + shape1.GetPerimeter() + ", Area: " + shape1.GetArea());
                     break;
                 }

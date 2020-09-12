@@ -10,15 +10,15 @@ public class Dog {
 		this.age = age;
 	}
 
-	public String getName() {
+	public String GetName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void SetName(String name) {
 		this.name = name;
 	}
 
-	public int getHumanEquivalentAge(){
+	public int GetHumanEquivalentAge(){
 		return 7 * getAge();
 	}
 
@@ -26,7 +26,7 @@ public class Dog {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void SetAge(int age) {
 		this.age = age;
 	}
 

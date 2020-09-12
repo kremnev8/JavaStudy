@@ -1,10 +1,10 @@
 package practical2;
 
-import Util.Shape;
+import Util.IShape;
 
-public class Square extends Shape {
+public class Square implements IShape {
 
-    public float a;
+    private float a;
 
     public Square(float a) {
 

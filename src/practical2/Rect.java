@@ -1,14 +1,30 @@
 package practical2;
 
-import Util.Shape;
+import Util.IShape;
 
-public class Rect extends Shape {
-    public float a;
-    public float b;
+public class Rect implements IShape {
+    private float a;
+    private float b;
 
     public Rect(float a, float b) {
 
         this.a = a;
+        this.b = b;
+    }
+
+    public float getA() {
+        return a;
+    }
+
+    public void setA(float a) {
+        this.a = a;
+    }
+
+    public float getB() {
+        return b;
+    }
+
+    public void setB(float b) {
         this.b = b;
     }
 
