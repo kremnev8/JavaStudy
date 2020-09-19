@@ -1,8 +1,6 @@
-package practical2;
+package Util;
 
-import Util.IShape;
-
-public class Rect implements IShape {
+public class Rect extends Shape {
     private float a;
     private float b;
 

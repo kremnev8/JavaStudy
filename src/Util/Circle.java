@@ -1,9 +1,6 @@
-package practical3;
+package Util;
 
-import Util.IShape;
-import Util.IPosition;
-
-public class Circle implements IShape, IPosition {
+public class Circle extends Shape implements IPosition {
 
 	private float radius;
 

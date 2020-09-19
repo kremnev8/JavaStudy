@@ -1,6 +1,4 @@
-package practical2;
-
-import Util.IShape;
+package Util;
 
 public class Square extends Rect {
 
