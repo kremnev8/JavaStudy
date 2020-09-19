@@ -23,14 +23,14 @@ import javax.imageio.ImageIO;
 
 public class Main {
 
-	public static Rect[] rects;
+	public static MovableRect[] rects;
 
 	public static void Draw(Graphics grp) {
 
 		grp.setColor(Color.black);
 		grp.fillRect(0, 0, 512, 512);
 		for (int i = 0; i < 5; i++) {
-			Rect ourRect = rects[i];
+			MovableRect ourRect = rects[i];
 
 			IMovable.Vector2[] pos = ourRect.GetPositions();
 			if (pos[0].x <= 0 || pos[1].x >= 512) {
@@ -49,7 +49,7 @@ public class Main {
 		final BufferedImage image = new BufferedImage(
 				512, 512, BufferedImage.TYPE_INT_RGB);
 		Graphics g = image.getGraphics();
-		rects = new Rect[5];
+		rects = new MovableRect[5];
 
 		Random random = new Random();
 
@@ -57,7 +57,7 @@ public class Main {
 		g.fillRect(0, 0, 512, 512);
 
 		for (int i = 0; i < 5; i++) {
-			Rect ourRect = new Rect(256 + random.nextInt(100) - 50, 256 + random.nextInt(100) - 50, random.nextInt(100)+10,  random.nextInt(100)+10);
+			MovableRect ourRect = new MovableRect(256 + random.nextInt(100) - 50, 256 + random.nextInt(100) - 50, random.nextInt(100)+10,  random.nextInt(100)+10);
 			ourRect.SetVelocity(new IMovable.Vector2(random.nextInt(20) - 10, random.nextInt(20) - 10));
 			ourRect.Draw(g);
 			rects[i] = ourRect;
