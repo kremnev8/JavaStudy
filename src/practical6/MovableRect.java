@@ -8,16 +8,18 @@
 
 package practical6;
 
+import Util.IColor;
 import Util.IMovable;
 import Util.Rect;
 import Util.Shape;
 
 import java.awt.*;
 
-public class MovableRect extends Rect implements IMovable {
+public class MovableRect extends Rect implements IMovable, IColor {
 
 		private Vector2[] positions = new Vector2[2];
 		private Vector2 velocity;
+		private Color color;
 
 		public MovableRect(float a, float b) {
 
@@ -37,7 +39,7 @@ public class MovableRect extends Rect implements IMovable {
 
 		@Override
 		public void Draw(Graphics g) {
-			g.setColor(Color.CYAN);
+			g.setColor(color);
 			g.fillRect((int)positions[0].x, (int)positions[0].y, (int)getA(), (int)getB());
 		}
 
@@ -92,4 +94,13 @@ public class MovableRect extends Rect implements IMovable {
 			}
 		}
 
+	@Override
+	public Color GetColor() {
+		return color;
+	}
+
+	@Override
+	public void SetColor(Color color) {
+		this.color = color;
+	}
 }

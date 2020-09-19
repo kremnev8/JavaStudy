@@ -59,6 +59,7 @@ public class Main {
 		for (int i = 0; i < 5; i++) {
 			MovableRect ourRect = new MovableRect(256 + random.nextInt(100) - 50, 256 + random.nextInt(100) - 50, random.nextInt(100)+10,  random.nextInt(100)+10);
 			ourRect.SetVelocity(new IMovable.Vector2(random.nextInt(20) - 10, random.nextInt(20) - 10));
+			ourRect.SetColor(new Color(random.nextFloat(),random.nextFloat(),random.nextFloat()));
 			ourRect.Draw(g);
 			rects[i] = ourRect;
 		}
