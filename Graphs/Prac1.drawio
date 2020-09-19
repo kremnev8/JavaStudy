@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-09-19T12:32:34.839Z" agent="5.0 (Windows)" etag="yhpAjuJfsEBSw0y8XrPT" version="13.7.3" type="github">
+<mxfile host="app.diagrams.net" modified="2020-09-19T12:33:25.818Z" agent="5.0 (Windows)" etag="5vp6MSOozz2yaJ_n5Q_w" version="13.7.3" type="github">
   <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
     <mxGraphModel dx="1038" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff" math="0" shadow="0">
       <root>
@@ -102,6 +102,9 @@
         </mxCell>
         <mxCell id="F6bOe8wZhMvPrzBqTqMu-20" value="+ velocity: Vector2" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="F6bOe8wZhMvPrzBqTqMu-17">
           <mxGeometry y="52" width="160" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="F6bOe8wZhMvPrzBqTqMu-25" value="+ color: Color" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;whiteSpace=wrap;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="F6bOe8wZhMvPrzBqTqMu-17">
+          <mxGeometry y="78" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="F6bOe8wZhMvPrzBqTqMu-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;endArrow=block;endFill=0;" edge="1" parent="1" source="F6bOe8wZhMvPrzBqTqMu-21" target="F6bOe8wZhMvPrzBqTqMu-17">
           <mxGeometry relative="1" as="geometry">
