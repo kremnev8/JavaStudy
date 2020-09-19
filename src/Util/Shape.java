@@ -10,6 +10,8 @@ package Util;
 
 import Util.IShape;
 
+import java.awt.*;
+
 public abstract class Shape implements IShape {
 
 	public String name;
@@ -23,6 +25,10 @@ public abstract class Shape implements IShape {
 	public abstract float GetArea();
 
 	public abstract float[] GetCenter();
+
+	public void Draw(Graphics g) {
+
+	}
 
 	@Override
 	public String toString() {

@@ -32,7 +32,7 @@ public class Main {
 					float r = Common.InputInt("Circle Radius: ");
 					float x = Common.InputInt("Circle X: ");
 					float y = Common.InputInt("Circle Y: ");
-					Circle shape1 = new Circle(r, x, y);
+					Circle shape1 = new Circle(r);
 					Common.Println("Circle with radius: " + shape1.GetRadius());
 					Common.Println("Perimeter: " + shape1.GetPerimeter() + ", Area: " + shape1.GetArea());
 					Common.Println("Center: " + Arrays.toString(shape1.GetCenter()));

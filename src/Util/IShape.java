@@ -8,9 +8,12 @@
 
 package Util;
 
+import java.awt.*;
+
 public interface IShape {
     float GetPerimeter();
     float GetArea();
     float[] GetCenter();
+    void Draw(Graphics g);
 }
 

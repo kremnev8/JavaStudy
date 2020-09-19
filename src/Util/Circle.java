@@ -8,39 +8,12 @@
 
 package Util;
 
-public class Circle extends Shape implements IPosition {
+public class Circle extends Shape {
 
 	private float radius;
 
-	private float x;
-	private float y;
-
 	public Circle(float radius) {
 		this.radius = radius;
-		this.x = 0;
-		this.y = 0;
-	}
-
-	public Circle(float radius, float x, float y) {
-		this.radius = radius;
-		this.x = x;
-		this.y = y;
-	}
-
-	public float GetX() {
-		return x;
-	}
-
-	public void SetX(float x) {
-		this.x = x;
-	}
-
-	public float GetY() {
-		return y;
-	}
-
-	public void SetY(float y) {
-		this.y = y;
 	}
 
 	public float GetRadius() {
@@ -63,6 +36,6 @@ public class Circle extends Shape implements IPosition {
 
 	@Override
 	public float[] GetCenter() {
-		return new float[] {x, y};
+		return new float[] {0, 0};
 	}
 }
