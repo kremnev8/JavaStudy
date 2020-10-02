@@ -37,7 +37,7 @@ public class Main {
 			company.Hire(employee);
 		}
 
-		List<Employee> employeeList = company.GetTopSalaryStaff(120);
+		List<Employee> employeeList = company.GetTopSalaryStaff(15);
 		Common.Println("Employees with highest salary: ");
 		for (Employee employee: employeeList) {
 			Common.Println(employee.toString());
