@@ -1,0 +1,30 @@
+plugins {
+    id 'java' // Для поддержки старого кода
+    id 'application' // Для запуска JavaFX
+    id 'org.openjfx.javafxplugin' version '0.0.8' // Зависимость на JavaFX
+}
+
+group 'com' // Базовый package вашего проекта
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral() // Откуда будут браться зависимости
+}
+
+dependencies {
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src'] // Указание папки с исходными файлами
+        }
+    }
+}
+
+javafx {
+    version = "14"
+    modules = [ 'javafx.controls' ] // Какие модули берутся из зависимости
+}
+mainClassName='com.practical9.Main' // Указать название файла, который будет запускаться
