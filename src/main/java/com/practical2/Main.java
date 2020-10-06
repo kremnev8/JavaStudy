@@ -8,7 +8,8 @@
 
 package com.practical2;
 
-import com.Util.*;
+import com.Util.Common;
+import com.Util.Rect;
 
 import java.util.ArrayList;
 import java.util.List;
