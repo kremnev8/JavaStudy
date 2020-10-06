@@ -27,4 +27,4 @@ javafx {
     version = "14"
     modules = [ 'javafx.controls' ] // Какие модули берутся из зависимости
 }
-mainClassName='com.practical9.Main' // Указать название файла, который будет запускаться
+mainClassName='com.practical10.CalculatorApp' // Указать название файла, который будет запускаться

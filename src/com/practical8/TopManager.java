@@ -6,7 +6,7 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical78;
+package com.practical8;
 
 public class TopManager implements IEmployeePosition  {
 
