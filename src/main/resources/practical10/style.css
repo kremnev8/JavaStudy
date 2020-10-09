@@ -1,0 +1,61 @@
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+ 
+/* The increment and decrement button CSS class of scrollbar */
+ 
+.mylistview .scroll-bar:vertical .increment-button ,
+.mylistview .scroll-bar:vertical .decrement-button {
+ 
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 10 0 0;
+ 
+}
+
+.mylistview  .scroll-bar:vertical .increment-arrow,
+.mylistview  .scroll-bar:vertical .decrement-arrow
+ {
+	-fx-background-color:transparent;	
+	-fx-padding:0;
+}
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.mylistview .scroll-bar:horizontal .thumb,
+.mylistview .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+	-fx-background-insets: 0, 0, 0;
+	-fx-background-radius: 0em;
+ 
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.mylistview .scroll-bar .thumb:hover,
+.mylistview .scroll-bar .thumb:pressed{
+    -fx-background-color: derive(black,70%);
+}
+
+.outputlist .scroll-bar:horizontal .thumb{
+    -fx-background-color:transparent;
+}
+
+.outputlist .scroll-bar:horizontal .track {
+    -fx-background-color:transparent;
+}
+
+/*.outputlist .increment-button ,
+.outputlist .decrement-button {
+    -fx-background-color:derive(gray,80%);
+	-fx-border-color:derive(gray,80%);
+	-fx-padding:10px;
+}
+
+.outputlist .increment-button:hover ,
+.outputlist .decrement-button:hover {
+    -fx-background-color:derive(gray,100%);
+	-fx-border-color:derive(gray,80%);	
+	-fx-padding:10px;
+}*/
+
+.historyitem :hover {
+	-fx-background-color:derive(gray,80%);
+}
