@@ -1,11 +1,18 @@
 plugins {
     id 'java' // Для поддержки старого кода
+    // id 'java-library'
     id 'application' // Для запуска JavaFX
-    id 'org.openjfx.javafxplugin' version '0.0.8' // Зависимость на JavaFX
+    //id 'org.openjfx.javafxplugin' version "0.0.8"// Зависимость на JavaFX
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group 'com' // Базовый package вашего проекта
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'com.practical10.Main' // Указать название файла, который будет запускаться
 
 repositories {
     mavenCentral() // Откуда будут браться зависимости
@@ -14,21 +21,20 @@ repositories {
 
 
 dependencies {
-    implementation 'com.github.javafaker:javafaker:1.0.2'
-    implementation 'org.jfxtras:jmetro:11.6.14'
-
+    compile  'com.github.javafaker:javafaker:1.0.2'
+    compile  'org.jfxtras:jmetro:8.6.14'
 }
 
 sourceSets {
     main {
         java {
-            srcDirs = ['src'] // Указание папки с исходными файлами
+            srcDirs = ['src/main/java/'] // Указание папки с исходными файлами
         }
     }
 }
 
-javafx {
-    version = "14"
-    modules = modules = [ 'javafx.controls', 'javafx.fxml' ] // Какие модули берутся из зависимости
-}
-mainClassName='com.practical10.SAPCalcCtrl' // Указать название файла, который будет запускаться
+
+/*javafx {
+    version = "8"
+    modules = [ 'javafx.controls', 'javafx.fxml' ] // Какие модули берутся из зависимости
+}*/

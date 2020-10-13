@@ -27,7 +27,7 @@ public class Main {
 			int prgID = Common.InputInt("Choose which program to run(0-2): ");
 
 			switch (prgID) {
-				case 0 -> {
+				case 0: {
 					float r = Common.InputInt("Circle Radius: ");
 					float x = Common.InputInt("Circle X: ");
 					float y = Common.InputInt("Circle Y: ");
@@ -35,13 +35,15 @@ public class Main {
 					Common.Println("Circle with radius: " + shape1.GetRadius());
 					Common.Println("Perimeter: " + shape1.GetPerimeter() + ", Area: " + shape1.GetArea());
 					Common.Println("Center: " + Arrays.toString(shape1.GetCenter()));
+					break;
 				}
-				case 1 -> {
+				case 1: {
 					Common.Println("Creating a new Human, please wait.");
 					Human human = new Human(100, SkinColor.White);
 					Common.Println(human.toString());
+					break;
 				}
-				case 2 -> {
+				case 2: {
 					List<Book> books = new ArrayList<>();
 					List<Book> takenBooks = new ArrayList<>();
 					books.add(new Book("Joan Rowling", "Harry Potter and the prisoner of Askaban", 2007, 1));
@@ -103,6 +105,7 @@ public class Main {
 							break;
 						}
 					}
+					break;
 				}
 			}
 			boolean runMore = Common.InputQuestion("Do you want to run another program?");

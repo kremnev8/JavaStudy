@@ -23,7 +23,7 @@ public class Main {
             int prgID = Common.InputInt("Choose which program to run(0-4): ");
 
             switch (prgID) {
-                case 0 -> {
+                case 0: {
                     int[] array = {1, 3, 5, 7, 11, 13};
                     int sum = 0;
 
@@ -31,8 +31,9 @@ public class Main {
                         sum += j;
                     }
                     Common.Println("Array sum: " + sum);
+                    break;
                 }
-                case 1 -> {
+                case 1: {
 
                     StringBuilder output = new StringBuilder();
 
@@ -40,8 +41,9 @@ public class Main {
                         output.append(" ").append(arg);
                     }
                     Common.Println("Arguments:" + output);
+                    break;
                 }
-                case 2 -> {
+                case 2: {
                     int num = Common.InputInt("Number of elements to print: ");
 
                     DecimalFormat formatter = new DecimalFormat("###.###");
@@ -54,8 +56,9 @@ public class Main {
 
                     Common.Println("First " + num + " elements of Harmonic Series:");
                     Common.Println(output.toString());
+                    break;
                 }
-                case 3 -> {
+                case 3: {
                     int num = Common.InputInt("Number of elements: ");
 
                     int[] array = new int[num];
@@ -92,12 +95,13 @@ public class Main {
                     }
 
                     Common.Println(output.toString());
-
+                    break;
                 }
-                case 4 -> {
+                case 4: {
                     int num = Common.InputInt("Calculate factorial of?: ");
                     int res = Common.Factorial(num);
                     Common.Println("Result: " + res);
+                    break;
                 }
             }
             boolean runMore = Common.InputQuestion("Do you want to run another program?");

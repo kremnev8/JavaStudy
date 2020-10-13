@@ -24,12 +24,13 @@ public class Main {
             int prgID = Common.InputInt("Choose which program to run(0-1): ");
 
             switch (prgID) {
-                case 0 -> {
+                case 0: {
                     Rect shape1 = new Rect(10, 20);
                     Common.Println("Rect: a: " + shape1.getA() + ", b: " + shape1.getB());
                     Common.Println("Perimeter: " + shape1.GetPerimeter() + ", Area: " + shape1.GetArea());
+                    break;
                 }
-                case 1 -> {
+                case 1: {
                     List<Dog> Dogs = new ArrayList<>();
 
                     while (true) {
@@ -52,6 +53,7 @@ public class Main {
                             break;
                         }
                     }
+                    break;
                 }
             }
             boolean runMore = Common.InputQuestion("Do you want to run another program?");
