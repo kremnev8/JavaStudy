@@ -38,3 +38,10 @@ sourceSets {
     version = "8"
     modules = [ 'javafx.controls', 'javafx.fxml' ] // Какие модули берутся из зависимости
 }*/
+
+task chooseTask(){
+    if (System.getProperty('choose', 'false') == 'true') {
+        mainClassName = mainClass;
+
+    }
+}
