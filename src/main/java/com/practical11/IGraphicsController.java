@@ -8,10 +8,12 @@
 
 package com.practical11;
 
+import com.practical11.GameController.*;
+
 public interface IGraphicsController {
-    void setMarker(int type, int x, int y);
+    void setMarker(EnumPlayers type, int num);
     void clearField();
-    void changePlayer(int newPlayer);
-    void showWinner(int player);
+    void changePlayer(EnumPlayers newPlayer);
+    void showWinner(EnumPlayers player);
     void showDrawWarn();
 }

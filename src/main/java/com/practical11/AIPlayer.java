@@ -13,46 +13,47 @@ import com.Util.Common;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import com.practical11.GameController.*;
 
 public class AIPlayer {
 
     private int chosen = -1;
 
-    int getStateScore(int[] node, int winner) {
+    int getStateScore(GameState node, FieldState state) {
         int moveCount = 0;
         for (int i = 0; i < 9; i++) {
-            if (node[i] == 1)
+            if (node.getMark(i) != EnumPlayers.None)
                 moveCount++;
         }
-        if (winner == 2) {
+        if (state == FieldState.Draw) {
             return 0;
-        } else if (winner == 0) {
+        } else if (state.getWinner() == EnumPlayers.PlayerX) {
             return 10 - moveCount;
         } else {
             return -10 + moveCount;
         }
     }
 
-    int alphaBeta(int[] node, int alpha, int beta, int player) {
+    int alphaBeta(GameState node, int alpha, int beta, EnumPlayers player) {
 
-        int rawValue = GameController.getWinner(node);
-        if (rawValue != -1) {
-            return getStateScore(node, rawValue);
+        FieldState state = node.evalFieldState();
+        if (state != FieldState.GameInProgress) {
+            return getStateScore(node, state);
         }
         int value;
-        if (player == 0) {
+        if (player == EnumPlayers.PlayerX) {
             value = -1000;
         } else {
             value = 1000;
         }
 
         for (int i = 0; i < 9; i++) {
-            if (node[i] == 0) {
-                int[] child = Arrays.copyOf(node, node.length);
-                child[i] = player + 1;
-                int val = alphaBeta(child, alpha, beta, GameController.getOpponent(player));
+            if (node.canMark(i)) {
+                GameState child = node.copy();
+                child.setMark(player, i);
+                int val = alphaBeta(child, alpha, beta, player.getOpponent());
 
-                if (player == 0) {
+                if (player == EnumPlayers.PlayerX) {
                     value = Math.max(value, val);
                     alpha = Math.max(alpha, value);
                     if ( alpha >= beta )
@@ -68,15 +69,15 @@ public class AIPlayer {
         return value;
     }
 
-    public void evalNextAction(int[] field){
+    public void evalNextAction(GameState state){
         ArrayList<scoredAction> scores = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {
-            if (field[i] == 0) {
-                int[] child = Arrays.copyOf(field, field.length);
-                child[i] = 2;
+            if (state.canMark(i)) {
+                GameState child = state.copy();
+                child.setMark(EnumPlayers.PlayerO, i);
 
-                int score = alphaBeta(child, -1000, 1000, 0);
+                int score = alphaBeta(child, -1000, 1000, EnumPlayers.PlayerX);
                 scores.add(new scoredAction(i, score));
             }
         }

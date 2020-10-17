@@ -8,9 +8,7 @@
 
 package com.practical11;
 
-import com.Util.Common;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
@@ -22,8 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.net.URL;
+import com.practical11.GameController.*;
 
 public class TicTacToeController implements IGraphicsController {
 
@@ -61,8 +58,12 @@ public class TicTacToeController implements IGraphicsController {
         context.stroke();
     }
 
-    public void setMarker(int type, int x, int y) {
-        context.drawImage(type == 0 ? cross : circle, 15 + 130 * x, 15 + 130 * y, 100, 100);
+    public void setMarker(EnumPlayers type, int num) {
+        if (type == EnumPlayers.None) return;
+
+        int x = num % 3;
+        int y = num / 3;
+        context.drawImage(type == EnumPlayers.PlayerX ? cross : circle, 15 + 130 * x, 15 + 130 * y, 100, 100);
     }
 
     @Override
@@ -81,22 +82,22 @@ public class TicTacToeController implements IGraphicsController {
     }
 
     @Override
-    public void changePlayer(int newPlayer) {
-        turnOut.setText("Player " + (newPlayer + 1) + " turn");
-        if (newPlayer == 1 && vsAI) {
-            ai.evalNextAction(controller.getField());
+    public void changePlayer(EnumPlayers newPlayer) {
+        turnOut.setText("Player " + (newPlayer.ordinal() + 1) + " turn");
+        if (newPlayer == EnumPlayers.PlayerO && vsAI) {
+            ai.evalNextAction(controller.getState());
             if (ai.getMove() != -1)
-                controller.mark(1, ai.getMove()%3, ai.getMove()/3);
+                controller.mark(EnumPlayers.PlayerO, ai.getMove());
         }
     }
 
     @Override
-    public void showWinner(int player) {
+    public void showWinner(EnumPlayers player) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Game over!");
 
         alert.setHeaderText(null);
-        alert.setContentText(players[player] + " has won the game!");
+        alert.setContentText(players[player.ordinal()] + " has won the game!");
 
         alert.showAndWait();
     }
@@ -121,7 +122,7 @@ public class TicTacToeController implements IGraphicsController {
 
         context = field.getGraphicsContext2D();
         context.setLineWidth(3);
-        controller = new GameController(this, 0);
+        controller = new GameController(this, EnumPlayers.PlayerX);
 
         ChoiceDialog dialog = new ChoiceDialog();
         boolean result = dialog.openDialog();
@@ -147,15 +148,15 @@ public class TicTacToeController implements IGraphicsController {
                 int x = clamp((int) (event.getSceneX() - point.getX()) / 130, 0, 3);
                 int y = clamp((int) (event.getSceneY() - point.getY()) / 130, 0, 3);
                 if (vsAI) {
-                    controller.mark(0, x, y);
+                    controller.mark(EnumPlayers.PlayerX, 3 * y + x);
                 } else {
-                    controller.mark(controller.getCurrentPlayer(), x, y);
+                    controller.mark(controller.getCurrentPlayer(), 3 * y + x);
                 }
             }
         });
 
         newGame.setOnAction(event -> {
-            controller.newGame(p1First.isSelected() ? 0 : 1);
+            controller.newGame(p1First.isSelected() ? EnumPlayers.PlayerX : EnumPlayers.PlayerO);
         });
     }
 

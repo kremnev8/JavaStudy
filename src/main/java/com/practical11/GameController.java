@@ -9,58 +9,49 @@
 package com.practical11;
 
 public class GameController {
-    private int[] field;
+    private GameState state;
 
-    public static final int[][] winningCombos  = new int[][]{
-            {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
-            {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
-            {0, 4, 8}, {2, 4, 6}};
-
-    private int currentPlayer;
+    private EnumPlayers currentPlayer;
     private boolean gameActive = true;
 
     public IGraphicsController controller;
 
-    public GameController(IGraphicsController controller, int initialPlayer) {
+    public GameController(IGraphicsController controller, EnumPlayers initialPlayer) {
 
-        field = new int[9];
         this.controller = controller;
         this.currentPlayer = initialPlayer;
 
-        for (int i = 0; i < 9; i++) {
-                field[i] = 0;
-        }
+        state = new GameState();
     }
 
-    public void newGame(int initialPlayer) {
+    public void newGame(EnumPlayers initialPlayer) {
         this.currentPlayer = initialPlayer;
         this.gameActive = true;
 
-        for (int i = 0; i < 9; i++) {
-            field[i] = 0;
-        }
+        state.clear();
 
         controller.clearField();
         controller.changePlayer(currentPlayer);
     }
 
-    public int getCurrentPlayer() {
+    public EnumPlayers getCurrentPlayer() {
         return currentPlayer;
     }
 
-    public int[] getField() {
-        return field;
+    public GameState getState() {
+        return state;
     }
 
-    public void mark(int player, int x, int y) {
-       if (field[3*y + x] == 0 && gameActive && player == currentPlayer) {
-           field[3*y + x] = currentPlayer + 1;
-           controller.setMarker(currentPlayer, x, y);
-           int res = getWinner(field);
-           if (res == -1) {
-               currentPlayer = getOpponent(currentPlayer);
+    public void mark(EnumPlayers player, int num) {
+       if (state.canMark(num) && gameActive && player == currentPlayer) {
+           state.setMark(player, num);
+           controller.setMarker(currentPlayer, num);
+
+           FieldState res = state.evalFieldState();
+           if (res == FieldState.GameInProgress) {
+               currentPlayer = currentPlayer.getOpponent();
                controller.changePlayer(currentPlayer);
-           }else if (res == 2) {
+           }else if (res == FieldState.Draw) {
                controller.showDrawWarn();
            }else {
                gameOver(res);
@@ -68,38 +59,52 @@ public class GameController {
        }
     }
 
-    public static int getWinner(int[] field) {
-        for (int i = 0; i < winningCombos.length; i++) {
-            int[] combo = winningCombos[i];
-            int lastValue = field[combo[0]];
-            for (int j = 1; j < 3; j++) {
-                if (field[combo[j]] != lastValue) {
-                    lastValue = 0;
-                    break;
-                }
-            }
-            if (lastValue != 0) {
-                return lastValue - 1;
-            }
-        }
-        int marksCount = 0;
-        for (int i = 0; i < 9; i++) {
-            if (field[i] != 0) marksCount++;
-        }
-
-        if (marksCount == 9) {
-            return 2;
-        }
-
-        return -1;
-    }
-
-    public static int getOpponent(int player) {
-        return (player + 1) % 2;
-    }
-
-    public void gameOver(int winnerIndex) {
-        controller.showWinner(winnerIndex);
+    public void gameOver(FieldState state) {
+        controller.showWinner(state.getWinner());
         gameActive = false;
+    }
+
+    enum FieldState {
+        WonPlayerX,
+        WonPlayerO,
+        Draw,
+        GameInProgress;
+
+        public static FieldState getByIndex(int index) {
+            if (index >= 0 && index < FieldState.values().length)
+                return FieldState.values()[index];
+            return null;
+        }
+
+        GameController.EnumPlayers getWinner() {
+            if (this.ordinal() < GameController.EnumPlayers.values().length) {
+                return GameController.EnumPlayers.getByIndex(this.ordinal());
+            }
+            return null;
+        }
+    }
+
+    enum EnumPlayers {
+        PlayerX('X'),
+        PlayerO('O'),
+        None(' ');
+
+        char icon;
+
+        EnumPlayers(char icon) {
+            this.icon = icon;
+        }
+
+        public static EnumPlayers getByIndex(int index) {
+            if (index >= 0 && index < EnumPlayers.values().length)
+                return EnumPlayers.values()[index];
+            return null;
+        }
+
+        public EnumPlayers getOpponent() {
+            if (this == EnumPlayers.None) return EnumPlayers.None;
+
+            return getByIndex((this.ordinal() + 1 ) %2);
+        }
     }
 }
