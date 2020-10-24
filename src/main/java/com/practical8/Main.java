@@ -9,72 +9,99 @@
 package com.practical8;
 
 import com.Util.Common;
-import com.github.javafaker.Faker;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
-	public static void main(String[] args) {
-		Company company = new Company();
-		Faker faker = new Faker();
+    public static void main(String[] args) {
 
-		for (int i = 0; i < 180; i++) {
-			Employee employee = new Employee(faker.name().firstName(), faker.name().lastName(), Common.PickRandom(0, 50000, 70000));
-			employee.SetPosition(new Operator());
-			company.Hire(employee);
-		}
+        boolean running = true;
 
-		for (int i = 0; i < 80; i++) {
-			Employee employee = new Employee(faker.name().firstName(), faker.name().lastName(), Common.PickRandom(0, 50000, 120000));
-			employee.SetPosition(new Manager());
-			company.Hire(employee);
-		}
+        while (running) {
 
-		for (int i = 0; i < 10; i++) {
-			Employee employee = new Employee(faker.name().firstName(), faker.name().lastName(), Common.PickRandom(0, 60000, 150000));
-			employee.SetPosition(new TopManager(company));
-			company.Hire(employee);
-		}
+            int prgID = Common.InputInt("Choose which program to run(0-2): ");
 
-		List<Employee> employeeList = company.GetTopSalaryStaff(15);
-		Common.Println("Employees with highest salary: ");
-		for (Employee employee: employeeList) {
-			Common.Println(employee.toString());
+            switch (prgID) {
+                case 0: {
 
-		}
-		Common.Println("");
+                    String text = "Vasya earned 5000 rubles, Petya - 7563 rubles, and Masha - 30000 rubles";
+                    String[] words = text.split(" ");
+                    String lastName = "";
 
-		employeeList = company.GetLowestSalaryStaff(30);
-		Common.Println("Employees with lowest salary: ");
-		for (Employee employee: employeeList) {
-			Common.Println(employee.toString());
+                    Map<String, Integer> salaries = new HashMap<>();
 
-		}
-		Common.Println("");
-		int layoffCount = company.employees.size() / 2;
-		Common.Println("Initiating massive layoff!");
-		for (int i = 0; i < layoffCount; i++) {
-			int pick = Common.PickRandom(0,0, company.employees.size());
-			Employee employee = company.employees.get(pick);
-			Common.Println("Firing " + employee.toString());
-			company.Fire(employee);
-		}
-		Common.Println("");
 
-		employeeList = company.GetTopSalaryStaff(15);
-		Common.Println("Employees with highest salary: ");
-		for (Employee employee: employeeList) {
-			Common.Println(employee.toString());
+                    for (int i = 0; i < words.length; i++) {
+                        String word = words[i];
+                        if (Character.isUpperCase(word.charAt(0))) {
+                            lastName = word;
+                        } else {
+                            try {
+                                int num = Integer.parseInt(word);
+                                salaries.put(lastName, num);
+                            } catch (NumberFormatException e) {
 
-		}
-		Common.Println("");
+                            }
+                        }
+                    }
 
-		employeeList = company.GetLowestSalaryStaff(30);
-		Common.Println("Employees with lowest salary: ");
-		for (Employee employee: employeeList) {
-			Common.Println(employee.toString());
+                    Common.Println("Vasya and Masha earned " + (salaries.get("Vasya") + salaries.get("Masha")) + " rubles in total!");
+                    break;
+                }
+                case 1: {
 
-		}
-	}
+                    String fullName = Common.InputString("Please enter your full name: ");
+                    Pattern fullNamePattern = Pattern.compile("([\\w\\-]+)\\s([\\w\\-]+)\\s?([\\w\\-]+)?");
+                    Matcher matcher = fullNamePattern.matcher(fullName);
+                    if (matcher.find()) {
+                        Common.Println("Last name: " + matcher.group(1));
+                        Common.Println("First name: " + matcher.group(2));
+                        if (matcher.group(3) != null) {
+                            Common.Println("Middle name: " + matcher.group(3));
+                        }
+                    } else {
+                        Common.Println("Your entered string does not contain a valid full name!");
+                    }
+
+                    break;
+                }
+                case 2: {
+                    String phoneNumber = Common.InputString("Please enter your phone number(in any format): ");
+                    int numberCount = 0;
+
+                    for (int i = 0; i < phoneNumber.length(); i++) {
+                        char c = phoneNumber.charAt(i);
+                        if (Character.isDigit(c)) {
+                            numberCount++;
+                        }
+                    }
+
+                    if (numberCount != 10 && numberCount != 11) {
+                        Common.Println("Your entered string does not contain a valid phone number!");
+                        break;
+                    }
+
+                    Pattern numberPattern = Pattern.compile("\\+?[78]?[\\s\\-]?\\(?(\\d{3})\\)?[\\s\\-]?(\\d{3})[\\s\\-]?(\\d{2})[\\s\\-]?(\\d{2})");
+                    Matcher matcher = numberPattern.matcher(phoneNumber);
+                    if (matcher.find()) {
+                        String formattedNumber = String.format("+7 (%03d) %03d-%02d-%02d", Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(4)));
+                        Common.Println("Thanks, your phone number is valid. Formatted number: " + formattedNumber);
+                    } else {
+                        Common.Println("Your entered string does not contain a valid phone number!");
+                    }
+                    break;
+                }
+            }
+            boolean runMore = Common.InputQuestion("Do you want to run another program?");
+            if (!runMore) {
+                running = false;
+            }
+        }
+
+
+    }
 }

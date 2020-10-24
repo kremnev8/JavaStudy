@@ -1,6 +1,5 @@
 plugins {
-    id 'java' // Для поддержки старого кода
-    // id 'java-library'
+    id 'java'
     id 'application' // Для запуска JavaFX
     //id 'org.openjfx.javafxplugin' version "0.0.8"// Зависимость на JavaFX
     id 'com.github.johnrengelman.shadow' version '6.1.0'
@@ -12,7 +11,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-mainClassName = 'com.practical10.Main' // Указать название файла, который будет запускаться
+mainClassName = 'com.old.practical10.Main' // Указать название файла, который будет запускаться
 
 repositories {
     mavenCentral() // Откуда будут браться зависимости
@@ -39,6 +38,7 @@ sourceSets {
     modules = [ 'javafx.controls', 'javafx.fxml' ] // Какие модули берутся из зависимости
 }*/
 
+//-Dchoose=true -PmainClass="com.practical7.Main"
 task chooseTask(){
     if (System.getProperty('choose', 'false') == 'true') {
         mainClassName = mainClass;

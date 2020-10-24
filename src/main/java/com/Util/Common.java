@@ -38,6 +38,8 @@ public class Common {
             input = Integer.parseInt(reader.readLine());
         } catch (IOException e) {
             Println("Invalid Input!");
+        } catch (NumberFormatException e) {
+            Println("Invalid Input!");
         }
         return input;
     }
