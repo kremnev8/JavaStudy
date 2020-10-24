@@ -84,24 +84,9 @@ public class Main {
                 }
                 case 2: {
                     String phoneNumber = Common.InputString("Please enter your phone number(in any format): ");
-                    int numberCount = 0;
-
-                    for (int i = 0; i < phoneNumber.length(); i++) {
-                        char c = phoneNumber.charAt(i);
-                        if (Character.isDigit(c)) {
-                            numberCount++;
-                        }
-                    }
-
-                    if (numberCount != 10 && numberCount != 11) {
-                        Common.Println("Your entered string does not contain a valid phone number!");
-                        break;
-                    }
-
-                    Pattern numberPattern = Pattern.compile("\\+?[78]?[\\s\\-]?\\(?(\\d{3})\\)?[\\s\\-]?(\\d{3})[\\s\\-]?(\\d{2})[\\s\\-]?(\\d{2})");
-                    Matcher matcher = numberPattern.matcher(phoneNumber);
-                    if (matcher.find()) {
-                        String formattedNumber = String.format("+7 (%03d) %03d-%02d-%02d", Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(4)));
+                    boolean valid = Common.validatePhoneNumber(phoneNumber);
+                    if (valid) {
+                        String formattedNumber = Common.formatPhoneNumber(phoneNumber);
                         Common.Println("Thanks, your phone number is valid. Formatted number: " + formattedNumber);
                     } else {
                         Common.Println("Your entered string does not contain a valid phone number!");

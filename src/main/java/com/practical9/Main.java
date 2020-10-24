@@ -8,12 +8,10 @@
 
 package com.practical9;
 
+import com.Util.Circle;
 import com.Util.Common;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -150,6 +148,83 @@ public class Main {
 									break;
 								}
 							}
+						}
+					}
+					break;
+				}
+				case 2: {
+					HashMap<String, String> phonebook = new HashMap<>();
+
+					boolean taskRun = true;
+
+					while (taskRun) {
+						String cmd = Common.InputString("> ");
+						ArrayList<String> args = new ArrayList<>(Arrays.asList(cmd.split(" ")));
+						if (args.size() > 0) {
+							cmd = args.get(0).toLowerCase();
+
+							switch (cmd) {
+								case "add": {
+									boolean ans = Common.InputQuestion("You are entering name?");
+									if (ans) {
+										String name = Common.InputString("Enter name: ");
+										if (name.equals("")) {
+											Common.Println("Name cannot be empty!");
+										} else if (phonebook.containsKey(name)) {
+											String number = phonebook.get(name);
+											Common.Println("Phone number for " + name + " is " + number);
+										} else {
+											String rawNumber = Common.InputString("This name is new. Please enter corresponding phone number:");
+											if (Common.validatePhoneNumber(rawNumber)) {
+												String validPhoneNumber = Common.formatPhoneNumber(rawNumber);
+												phonebook.put(name, validPhoneNumber);
+												Common.Println("Added entry successfully!");
+											} else {
+												Common.Println("Phone number " + rawNumber + " is invalid!");
+											}
+										}
+									} else {
+										String rawNumber = Common.InputString("Enter phone number: ");
+										if (Common.validatePhoneNumber(rawNumber)) {
+											String validPhoneNumber = Common.formatPhoneNumber(rawNumber);
+											Set<String> keys = phonebook.keySet();
+											boolean found = false;
+											for (String key : keys) {
+												if (phonebook.get(key).equals(validPhoneNumber)) {
+													Common.Println("Name for phone number " + validPhoneNumber + " is " + key);
+													found = true;
+													break;
+												}
+											}
+											if (!found) {
+												String name = Common.InputString("This phone number is new. Please enter corresponding name:");
+												if (name.equals("")) {
+													Common.Println("Name cannot be empty!");
+												} else {
+													phonebook.put(name, validPhoneNumber);
+												}
+											}
+										} else {
+											Common.Println("Phone number " + rawNumber + " is invalid!");
+										}
+									}
+									break;
+								}
+								case "list": {
+									Set<String> keys = phonebook.keySet();
+									boolean found = false;
+									for (String key: keys) {
+										Common.Println("Name: " + key + ", phone number: " + phonebook.get(key));
+									}
+
+									break;
+								}
+								case "exit" : {
+									taskRun = false;
+
+									break;
+								}
+ 							}
 						}
 					}
 					break;

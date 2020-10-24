@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Common {
 
@@ -88,5 +90,35 @@ public class Common {
         if (value != null && value.length() > length)
             value = value.substring(0, length);
         return value;
+    }
+
+    public static boolean validatePhoneNumber(String number) {
+        int numberCount = 0;
+
+        for (int i = 0; i < number.length(); i++) {
+            char c = number.charAt(i);
+            if (Character.isDigit(c)) {
+                numberCount++;
+            }
+        }
+
+        if (numberCount != 10 && numberCount != 11) {
+            return false;
+        }
+
+        Pattern numberPattern = Pattern.compile("\\+?[78]?[\\s\\-]?\\(?(\\d{3})\\)?[\\s\\-]?(\\d{3})[\\s\\-]?(\\d{2})[\\s\\-]?(\\d{2})");
+        Matcher matcher = numberPattern.matcher(number);
+        return matcher.find();
+    }
+
+    public static String formatPhoneNumber(String number) {
+        if (!validatePhoneNumber(number)) return "";
+
+        Pattern numberPattern = Pattern.compile("\\+?[78]?[\\s\\-]?\\(?(\\d{3})\\)?[\\s\\-]?(\\d{3})[\\s\\-]?(\\d{2})[\\s\\-]?(\\d{2})");
+        Matcher matcher = numberPattern.matcher(number);
+        if (matcher.find()) {
+            return String.format("+7 (%03d) %03d-%02d-%02d", Integer.parseInt(matcher.group(1)), Integer.parseInt(matcher.group(2)), Integer.parseInt(matcher.group(3)), Integer.parseInt(matcher.group(4)));
+        }
+        return "";
     }
 }
