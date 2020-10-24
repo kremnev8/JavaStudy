@@ -10,6 +10,7 @@ package com.practical8;
 
 import com.Util.Common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -29,14 +30,26 @@ public class Main {
                 case 0: {
 
                     String text = "Vasya earned 5000 rubles, Petya - 7563 rubles, and Masha - 30000 rubles";
-                    String[] words = text.split(" ");
+                    ArrayList<String> words = new ArrayList<>();
+                    String tmp = "";
+                    for (int i = 0; i < text.length(); i++) {
+                        char ch = text.charAt(i);
+                        if (ch != ' '){
+                            tmp += ch;
+                        }else {
+                            words.add(tmp);
+                            tmp = "";
+                        }
+                    }
+                    words.add(tmp);
+
                     String lastName = "";
 
                     Map<String, Integer> salaries = new HashMap<>();
 
 
-                    for (int i = 0; i < words.length; i++) {
-                        String word = words[i];
+                    for (int i = 0; i < words.size(); i++) {
+                        String word = words.get(i);
                         if (Character.isUpperCase(word.charAt(0))) {
                             lastName = word;
                         } else {
@@ -93,6 +106,10 @@ public class Main {
                     } else {
                         Common.Println("Your entered string does not contain a valid phone number!");
                     }
+                    break;
+                }
+                default: {
+                    Common.Println("Could not find task you asked for. Check your input.");
                     break;
                 }
             }
