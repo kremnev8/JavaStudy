@@ -10,100 +10,230 @@ package com.practical8;
 
 import com.Util.Common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] ar_) {
 
-        boolean running = true;
+		boolean running = true;
 
-        while (running) {
-
-            int prgID = Common.InputInt("Choose which program to run(0-2): ");
-
-            switch (prgID) {
-                case 0: {
-
-                    String text = "Vasya earned 5000 rubles, Petya - 7563 rubles, and Masha - 30000 rubles";
-                    ArrayList<String> words = new ArrayList<>();
-                    String tmp = "";
-                    for (int i = 0; i < text.length(); i++) {
-                        char ch = text.charAt(i);
-                        if (ch != ' '){
-                            tmp += ch;
-                        }else {
-                            words.add(tmp);
-                            tmp = "";
-                        }
-                    }
-                    words.add(tmp);
-
-                    String lastName = "";
-
-                    Map<String, Integer> salaries = new HashMap<>();
+		final String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
 
-                    for (int i = 0; i < words.size(); i++) {
-                        String word = words.get(i);
-                        if (Character.isUpperCase(word.charAt(0))) {
-                            lastName = word;
-                        } else {
-                            try {
-                                int num = Integer.parseInt(word);
-                                salaries.put(lastName, num);
-                            } catch (NumberFormatException e) {
 
-                            }
-                        }
-                    }
+		while (running) {
 
-                    Common.Println("Vasya and Masha earned " + (salaries.get("Vasya") + salaries.get("Masha")) + " rubles in total!");
-                    break;
-                }
-                case 1: {
+			int prgID = Common.InputInt("Choose which program to run(0-2): ");
 
-                    String fullName = Common.InputString("Please enter your full name: ");
-                    Pattern fullNamePattern = Pattern.compile("([\\w\\-]+)\\s([\\w\\-]+)\\s?([\\w\\-]+)?");
-                    Matcher matcher = fullNamePattern.matcher(fullName);
-                    if (matcher.find()) {
-                        Common.Println("Last name: " + matcher.group(1));
-                        Common.Println("First name: " + matcher.group(2));
-                        if (matcher.group(3) != null) {
-                            Common.Println("Middle name: " + matcher.group(3));
-                        }
-                    } else {
-                        Common.Println("Your entered string does not contain a valid full name!");
-                    }
+			switch (prgID) {
+				case 0: {
 
-                    break;
-                }
-                case 2: {
-                    String phoneNumber = Common.InputString("Please enter your phone number(in any format): ");
-                    boolean valid = Common.validatePhoneNumber(phoneNumber);
-                    if (valid) {
-                        String formattedNumber = Common.formatPhoneNumber(phoneNumber);
-                        Common.Println("Thanks, your phone number is valid. Formatted number: " + formattedNumber);
-                    } else {
-                        Common.Println("Your entered string does not contain a valid phone number!");
-                    }
-                    break;
-                }
-                default: {
-                    Common.Println("Could not find task you asked for. Check your input.");
-                    break;
-                }
-            }
-            boolean runMore = Common.InputQuestion("Do you want to run another program?");
-            if (!runMore) {
-                running = false;
-            }
-        }
+					ArrayList<String> toDoList = new ArrayList<>();
 
+					boolean taskRun = true;
 
-    }
+					while (taskRun) {
+
+						String cmd = Common.InputString("> ");
+						ArrayList<String> args = new ArrayList<>(Arrays.asList(cmd.split(" ")));
+						if (args.size() > 0) {
+							cmd = args.get(0).toLowerCase();
+							args.remove(0);
+
+							switch (cmd) {
+								case "list": {
+									Common.Println("TODO list contains:");
+									for (String value : toDoList) {
+										Common.Println(value);
+									}
+									break;
+								}
+								case "add": {
+									if (args.size() < 1) break;
+									int index = -1;
+									StringBuilder taskB = new StringBuilder();
+									try {
+										index = Integer.parseInt(args.get(0));
+										for (int i = 1; i < args.size(); i++) {
+											taskB.append(args.get(i));
+										}
+									} catch (NumberFormatException e) {
+										for (int i = 0; i < args.size(); i++) {
+											taskB.append(args.get(i));
+										}
+									}
+									String task = taskB.toString();
+									if (index >= 0 && index < toDoList.size()) {
+										toDoList.add(index, task);
+									} else {
+										toDoList.add(task);
+									}
+									break;
+								}
+								case "edit": {
+									if (args.size() < 2) break;
+									int index = -1;
+									StringBuilder taskB = new StringBuilder();
+									try {
+										index = Integer.parseInt(args.get(0));
+										for (int i = 1; i < args.size(); i++) {
+											taskB.append(args.get(i));
+										}
+									} catch (NumberFormatException e) {
+										break;
+									}
+									if (index >= 0 && index < toDoList.size()) {
+										toDoList.set(index, taskB.toString());
+									}
+									break;
+								}
+								case "delete": {
+									if (args.size() < 1) break;
+									int index = -1;
+									try {
+										index = Integer.parseInt(args.get(0));
+									} catch (NumberFormatException e) {
+										break;
+									}
+									if (index >= 0 && index < toDoList.size()) {
+										toDoList.remove(index);
+									}
+									break;
+								}
+								case "exit" : {
+									taskRun = false;
+									break;
+								}
+							}
+						}
+					}
+					break;
+				}
+
+				case 1: {
+					TreeSet<String> emailsSet = new TreeSet<>();
+
+					boolean taskRun = true;
+
+					while (taskRun) {
+
+						String cmd = Common.InputString("> ");
+						ArrayList<String> args = new ArrayList<>(Arrays.asList(cmd.split(" ")));
+						if (args.size() > 0) {
+							cmd = args.get(0).toLowerCase();
+							args.remove(0);
+
+							switch (cmd) {
+								case "list": {
+									Common.Println("e-mails set contains:");
+									for (String value : emailsSet) {
+										Common.Println(value);
+									}
+									break;
+								}
+								case "add": {
+									if (args.size() < 1) break;
+									String email = args.get(0);
+									Pattern pattern = Pattern.compile(regex);
+									Matcher matcher = pattern.matcher(email);
+									if (matcher.matches()){
+										emailsSet.add(email);
+										Common.Println("E-mail " + email + " is valid.");
+									}else {
+										Common.Println("E-mail " + email + " is invalid!");
+									}
+									break;
+								}
+							}
+						}
+					}
+					break;
+				}
+				case 2: {
+					HashMap<String, String> phonebook = new HashMap<>();
+
+					boolean taskRun = true;
+
+					while (taskRun) {
+						String cmd = Common.InputString("> ");
+						ArrayList<String> args = new ArrayList<>(Arrays.asList(cmd.split(" ")));
+						if (args.size() > 0) {
+							cmd = args.get(0).toLowerCase();
+
+							switch (cmd) {
+								case "add": {
+									boolean ans = Common.InputQuestion("You are entering name?");
+									if (ans) {
+										String name = Common.InputString("Enter name: ");
+										if (name.equals("")) {
+											Common.Println("Name cannot be empty!");
+										} else if (phonebook.containsKey(name)) {
+											String number = phonebook.get(name);
+											Common.Println("Phone number for " + name + " is " + number);
+										} else {
+											String rawNumber = Common.InputString("This name is new. Please enter corresponding phone number:");
+											if (Common.validatePhoneNumber(rawNumber)) {
+												String validPhoneNumber = Common.formatPhoneNumber(rawNumber);
+												phonebook.put(name, validPhoneNumber);
+												Common.Println("Added entry successfully!");
+											} else {
+												Common.Println("Phone number " + rawNumber + " is invalid!");
+											}
+										}
+									} else {
+										String rawNumber = Common.InputString("Enter phone number: ");
+										if (Common.validatePhoneNumber(rawNumber)) {
+											String validPhoneNumber = Common.formatPhoneNumber(rawNumber);
+											Set<String> keys = phonebook.keySet();
+											boolean found = false;
+											for (String key : keys) {
+												if (phonebook.get(key).equals(validPhoneNumber)) {
+													Common.Println("Name for phone number " + validPhoneNumber + " is " + key);
+													found = true;
+													break;
+												}
+											}
+											if (!found) {
+												String name = Common.InputString("This phone number is new. Please enter corresponding name:");
+												if (name.equals("")) {
+													Common.Println("Name cannot be empty!");
+												} else {
+													phonebook.put(name, validPhoneNumber);
+												}
+											}
+										} else {
+											Common.Println("Phone number " + rawNumber + " is invalid!");
+										}
+									}
+									break;
+								}
+								case "list": {
+									Set<String> keys = phonebook.keySet();
+									boolean found = false;
+									for (String key: keys) {
+										Common.Println("Name: " + key + ", phone number: " + phonebook.get(key));
+									}
+
+									break;
+								}
+								case "exit" : {
+									taskRun = false;
+
+									break;
+								}
+ 							}
+						}
+					}
+					break;
+				}
+				default: {
+					Common.Println("Could not find task you asked for. Check your input.");
+					break;
+				}
+			}
+		}
+	}
 }

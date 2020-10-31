@@ -6,7 +6,7 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical7;
+package com.practical6;
 
 public class GameController {
     private GameState state;

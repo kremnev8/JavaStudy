@@ -19,7 +19,7 @@
   ~ copies or substantial portions of the Software.
   -->
 
-<GridPane prefHeight="550.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.practical7.TicTacToeController">
+<GridPane prefHeight="550.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.practical6.TicTacToeController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" />
    </columnConstraints>

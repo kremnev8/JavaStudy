@@ -6,7 +6,7 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical7;
+package com.practical6;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +30,7 @@ public class ChoiceDialog extends Dialog<Boolean> {
 
     public boolean openDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/practical7/ChoiceDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/practical6/ChoiceDialog.fxml"));
             Parent root = null;
             root = loader.load();
             instance = loader.getController();

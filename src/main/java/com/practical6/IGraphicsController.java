@@ -6,9 +6,9 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical7;
+package com.practical6;
 
-import com.practical7.GameController.*;
+import com.practical6.GameController.*;
 
 public interface IGraphicsController {
     void setMarker(EnumPlayers type, int num);

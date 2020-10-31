@@ -6,7 +6,7 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical7;
+package com.practical6;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import com.practical7.GameController.*;
+import com.practical6.GameController.*;
 
 public class TicTacToeController implements IGraphicsController {
 
@@ -136,8 +136,8 @@ public class TicTacToeController implements IGraphicsController {
 
         turnOut.setText("Player 1 turn");
 
-        cross = new Image("/practical7/cross.png");
-        circle = new Image("/practical7/circle.png");
+        cross = new Image("/practical6/cross.png");
+        circle = new Image("/practical6/circle.png");
 
         clearField();
 

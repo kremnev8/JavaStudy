@@ -6,13 +6,13 @@
  * copies or substantial portions of the Software.
  */
 
-package com.practical7;
+package com.practical6;
 
 import com.Util.Common;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import com.practical7.GameController.*;
+import com.practical6.GameController.*;
 
 public class AIPlayer {
 
