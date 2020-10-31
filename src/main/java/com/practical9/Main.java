@@ -67,7 +67,7 @@ public class Main {
 										}
 									}
 									String task = taskB.toString();
-									if (index != -1) {
+									if (index >= 0 && index < toDoList.size()) {
 										toDoList.add(index, task);
 									} else {
 										toDoList.add(task);
@@ -86,7 +86,7 @@ public class Main {
 									} catch (NumberFormatException e) {
 										break;
 									}
-									if (index != -1) {
+									if (index >= 0 && index < toDoList.size()) {
 										toDoList.set(index, taskB.toString());
 									}
 									break;
@@ -99,8 +99,9 @@ public class Main {
 									} catch (NumberFormatException e) {
 										break;
 									}
-
-									toDoList.remove(index);
+									if (index >= 0 && index < toDoList.size()) {
+										toDoList.remove(index);
+									}
 									break;
 								}
 								case "exit" : {
