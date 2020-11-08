@@ -49,14 +49,12 @@ public class Main {
 								carNumbers.add(builder.toString());
 								carNumbersHashSet.add(builder.toString());
 								carNumbersTreeSet.add(builder.toString());
-
 							}
 						}
 					}
 				}
 			}
 		}
-		Common.Println("There are " + carNumbers.size() + " numbers!");
 
 		String searchTarget = Common.InputString("Enter car number to find: ");
 

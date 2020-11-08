@@ -52,8 +52,24 @@ public interface IMovable {
 			return new Vector2(x + rhs.x, y + rhs.y);
 		}
 
+		public Vector2 sub(Vector2 rhs) {
+			return new Vector2(x - rhs.x, y - rhs.y);
+		}
+
 		public Vector2 mul(Vector2 rhs) {
 			return new Vector2(x * rhs.x, y * rhs.y);
+		}
+
+		public Vector2 mul(float rhs) {
+			return new Vector2(x * rhs, y * rhs);
+		}
+		public float magnitude() {
+			return (float)Math.sqrt(x*x +y*y);
+		}
+
+		public Vector2 normalize() {
+			float magn = magnitude();
+			return new Vector2(x / magn, y / magn);
 		}
 
 	}

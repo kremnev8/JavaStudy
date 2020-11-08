@@ -8,9 +8,9 @@
 
 package com.Util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,17 +20,82 @@ public class Common {
     private static BufferedReader reader;
     private static Random rnd;
 
+    private static PrintWriter fileWriter;
+
     static {
         reader = new BufferedReader(new InputStreamReader(System.in));
         rnd = new Random();
+
+        File outDir = new File("out/");
+        outDir.mkdirs();
+
+        if (outDir.exists()) {
+            try {
+                FileWriter fw = new FileWriter("out/log.txt", true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                fileWriter = new PrintWriter(bw);
+            } catch (FileNotFoundException e) {
+                Println("Error: can't open out/log.txt: ");
+                Println(e.getMessage());
+            } catch (IOException e) {
+                Println("Error: can't open out/log.txt: ");
+                Println(e.getMessage());
+            }
+        }
+    }
+
+    public enum Target {
+        CONSOLE,
+        FILE,
+        BOTH;
+
+        public boolean isFile() {
+            return this == FILE || this == BOTH;
+        }
+
+        public boolean isConsole() {
+            return this == CONSOLE || this == BOTH;
+        }
+    }
+
+    public static void Println(String out, Target target, boolean stampTime){
+
+        if (target.isConsole()) {
+            System.out.println(out);
+        }
+
+        if (fileWriter != null && target.isFile()) {
+            if (stampTime) {
+                String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm"));
+                fileWriter.print("[" + time + "] ");
+            }
+            fileWriter.println(out);
+            fileWriter.flush();
+        }
     }
 
     public static void Println(String out){
-        System.out.println(out);
+        Println(out, Target.BOTH, true);
+    }
+
+    public static void Print(String out, Target target, boolean stampTime){
+
+        if (target.isConsole()) {
+            System.out.print(out);
+        }
+
+        if (fileWriter != null && target.isFile()) {
+            if (stampTime) {
+                String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm"));
+                fileWriter.print("[" + time + "] ");
+            }
+            fileWriter.print(out);
+            fileWriter.flush();
+        }
     }
 
     public static void Print(String out){
-        System.out.print(out);
+        Print(out, Target.BOTH, true);
     }
 
     public static int InputInt(String message) {
@@ -38,6 +103,7 @@ public class Common {
         int input = 0;
         try {
             input = Integer.parseInt(reader.readLine());
+            Println(String.valueOf(input), Target.FILE, false);
         } catch (IOException e) {
             Println("Invalid Input!");
         } catch (NumberFormatException e) {
@@ -49,7 +115,9 @@ public class Common {
     public static String InputString(String message) {
         Print(message);
         try {
-            return reader.readLine();
+            String input = reader.readLine();
+            Println(input, Target.FILE, false);
+            return input;
         } catch (IOException e) {
             Println("Something went wrong!");
         }
@@ -60,6 +128,7 @@ public class Common {
         Print(message + "(Yes/No): ");
         try {
             String input = reader.readLine();
+            Println(input, Target.FILE, false);
             return (input.toLowerCase().contains("y"));
 
         } catch (IOException e) {

@@ -234,6 +234,10 @@ public class Main {
 					break;
 				}
 			}
+			boolean runMore = Common.InputQuestion("Do you want to run another program?");
+			if (!runMore) {
+				running = false;
+			}
 		}
 	}
 }
