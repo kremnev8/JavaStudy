@@ -129,7 +129,7 @@ public class Main {
                                 InputStream in = URI.create(url).toURL().openStream();
                                 Files.copy(in, Paths.get("out/practical11/images", filePath, fileName), StandardCopyOption.REPLACE_EXISTING);
 
-                                Common.Println(", done!");
+                                Common.Println(", done!", Common.Target.BOTH, false);
                             } catch (IOException e) {
                                 Common.Println("Error downloading file: ");
                                 Common.Println(e.getMessage());
