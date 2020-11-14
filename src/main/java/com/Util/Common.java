@@ -41,7 +41,12 @@ public class Common {
                 Println("Error: can't open out/log.txt: ");
                 Println(e.getMessage());
             }
+            Runtime.getRuntime().addShutdownHook(new Thread(Common::finishLogger));
         }
+    }
+
+    private static void finishLogger() {
+        fileWriter.close();
     }
 
     public enum Target {
