@@ -11,7 +11,6 @@ package com.practical12;
 import com.Util.Common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,7 +19,6 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +32,6 @@ public class Main {
 
         Pattern lineIdPattern = Pattern.compile("'lines-(.+)'");
         Pattern lineIdPattern1 = Pattern.compile("^lines-(.+)$");
-        Type mapType = new TypeToken<Map<String, String>>() {}.getType();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         new File("out/practical12").mkdirs();
