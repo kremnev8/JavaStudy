@@ -9,6 +9,7 @@
 package com.Util;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -26,18 +27,21 @@ public class Common {
         reader = new BufferedReader(new InputStreamReader(System.in));
         rnd = new Random();
 
+        try {
+            System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new InternalError("VM does not support mandatory encoding UTF-8");
+        }
+
         File outDir = new File("out/");
         outDir.mkdirs();
 
+
         if (outDir.exists()) {
             try {
-                FileWriter fw = new FileWriter("out/log.txt", true);
-                BufferedWriter bw = new BufferedWriter(fw);
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("out/log.txt", true), StandardCharsets.UTF_8));
                 fileWriter = new PrintWriter(bw);
             } catch (FileNotFoundException e) {
-                Println("Error: can't open out/log.txt: ");
-                Println(e.getMessage());
-            } catch (IOException e) {
                 Println("Error: can't open out/log.txt: ");
                 Println(e.getMessage());
             }
