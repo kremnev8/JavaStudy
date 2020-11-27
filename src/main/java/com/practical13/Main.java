@@ -41,7 +41,7 @@ public class Main {
             int threadsAvailable = Runtime.getRuntime().availableProcessors();
             int subArraySize = (int) Math.ceil((double) files.length / threadsAvailable);
 
-            for (int i = 0; i < threadsAvailable; ++i) {
+            for (int i = 0; i < threadsAvailable; i++) {
                 int position = i * subArraySize;
                 int length = Math.min(files.length - position, subArraySize);
 
